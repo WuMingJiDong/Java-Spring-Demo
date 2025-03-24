@@ -1,0 +1,153 @@
+Spring框架是轻量级的控制反转（IoC）和面向切面编程（AOP）的开源框架。
+
+Spring框架的优点：
+	1.非侵入式设计
+	2.降低耦合性
+	3.支持AOP编程
+	4.支持声明式事务
+	5.方便程序的测试
+	6.方便集成框架
+	7.降低Java EE API的使用难度
+
+Spring5框架组成模块：
+	1）核心容器模块：
+		1.Beans模块
+		2.Core模块
+		3.Context模块
+		4.SpEL模块
+
+	2）数据访问及集成模块：
+		1.JDBC模块
+		2.ORM模块
+		3.OXM模块
+		4.JMS模块
+		5.Transactions模块
+
+	3）web模块：
+		1.Web模块
+		2.Servlet模块
+		3.WebSocket模块
+		4.Portlet模块
+
+	4）其他模块：
+		1.AOP模块
+		2.Aspects模块
+		3.Instrumentation模块
+		4.Messaging模块
+		5.Test模块
+
+Spring 5代码库运行于JDK 8之上。
+
+Spring目录结构下文件夹介绍：
+	1.docs文件夹：该文件夹下存放Spring的相关文档，包括开发指南、API参考文档。
+	2.libs文件夹：该文件夹下存放开发所需的jar包和源码。整个Spring框架由21个模块组成，libs目录下Spring为每个模块都提供了三个压缩包，因此，libs文件夹下一共有63个jar包。这63个jar包分为三类。
+	3.schema文件夹：该文件夹下存放Spring各种配置文件的XML Schema文档。
+
+一站式：Spring在javaEE开发的三层中，每一层都有相应的解决技术。
+
+入门程序：
+	1.创建maven项目
+	2.在pom.xml文件中引入依赖：
+	<dependencies>
+        	<!--spring-beans-->
+        	<dependency>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-beans</artifactId>
+            		<version>5.2.8.RELEASE</version>
+        	</dependency>
+
+        	<!--spring-core-->
+        	<dependency>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-core</artifactId>
+            		<version>5.2.8.RELEASE</version>
+        	</dependency>
+
+        	<!--spring-context-->
+        	<!--因为有依赖传递，只需要导入spring-context即可-->
+        	<dependency>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-context</artifactId>
+            		<version>5.2.8.RELEASE</version>
+        	</dependency>
+
+        	<!--spring-expression-->
+        	<dependency>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-expression</artifactId>
+            		<version>5.2.8.RELEASE</version>
+        	</dependency>
+
+        	<!--spring的依赖包commons-logging-->
+        	<dependency>
+            		<groupId>commons-logging</groupId>
+            		<artifactId>commons-logging</artifactId>
+            		<version>1.2</version>
+        	</dependency>
+    	</dependencies>
+
+	3.创建类
+	4.创建一个xml文件（一般叫做applicationContext.xml）作为一个或多个类的配置文件
+
+	该XML文件的约束信息配置：
+	<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+Spring帮助文档：
+	打开Spring目录结构下的docs文件夹，在spring-framework-reference文件夹的Spring的参考文件目录下找到index.html文件。 
+	在index.html中单击“Core”链接进入Core Technologies页面，单击1.The IoC container→1.2.Container overview→1.2.1.Configuration Metadata目录，可以查看配置文件的约束信息。
+
+控制反转（IoC）：
+	将对象的创建交给Spring容器，当程序需要使用对象时，可以从IoC容器中获取。
+
+依赖注入（DI）：
+	给属性赋值。
+
+关系：DI不能单独存在，需要在IoC的基础上完成操作
+
+依赖注入的类型：
+	1.构造方法注入：Spring容器调用构造方法注入被依赖的实例，构造方法可以是有参的或者是无参的。
+		如果有无参构造方法：
+			<bean id="helloSpring" class="cn.edu.hbsi.HelloSpring"></bean>
+
+		如果没有无参构造方法：
+			<bean id="user1" class="cn.edu.hbsi.User1">
+        			<!--通过属性名赋值-->
+        			<constructor-arg name="id" value="1"/>
+        			<constructor-arg name="name" value="悸动."/>
+        			<constructor-arg name="password" value="7654321"/>
+
+				<!--通过类型赋值-->
+        			<constructor-arg type="java.lang.Integer" value="1"/>
+        			<constructor-arg type="java.lang.String" value="悸动."/>
+        			<constructor-arg type="java.lang.String" value="7654321"/>
+
+				<!--通过index属性位置赋值-->
+        			<constructor-arg index="0" value="1"/>
+        			<constructor-arg index="1" value="悸动."/>
+        			<constructor-arg index="2" value="7654321"/>
+    			</bean>
+
+			<constructor-arg>元素：
+				一个<constructor-arg>元素表示构造方法的一个参数。
+
+	2.通过属性setter方法注入：它是在被注入的类中声明一个setter方法，通过setter方法的参数注入对应的值。
+		<bean id="user2" class="cn.edu.hbsi.User2">
+        		<property name="id" value="1"/>
+        		<property name="name" value="悸动."/>
+        		<property name="password" value="7654321"/>
+        		<property name="user1" ref="user1"/>
+    		</bean>
+
+测试类：
+	public static void main(String[] args) {
+        	//1.获取Spring容器
+        	ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        	//2.从Spring容器中获取对象
+        	HelloSpring helloSpring = (HelloSpring) applicationContext.getBean("helloSpring");
+
+        	//3.调用对象的方法
+        	helloSpring.show();
+    	}

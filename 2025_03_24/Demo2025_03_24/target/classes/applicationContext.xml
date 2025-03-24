@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--让Spring容器创建HelloSpring对象实例-->
+    <bean id="helloSpring" class="cn.edu.hbsi.HelloSpring">
+        <!--给userName属性赋值-->
+        <property name="userName" value="悸动."/>
+    </bean>
+
+    <!--让Spring容器创建User1对象实例-->
+    <bean id="user1" class="cn.edu.hbsi.User1">
+<!--        &lt;!&ndash;通过构造方法，给属性赋值，依赖注入&ndash;&gt;-->
+<!--        &lt;!&ndash;通过属性名赋值&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="id" value="1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="name" value="悸动."/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg name="password" value="7654321"/>&ndash;&gt;-->
+
+<!--        &lt;!&ndash;通过类型赋值&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg type="java.lang.Integer" value="1"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg type="java.lang.String" value="悸动."/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <constructor-arg type="java.lang.String" value="7654321"/>&ndash;&gt;-->
+
+        <!--通过index属性位置赋值-->
+        <constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="悸动."/>
+        <constructor-arg index="2" value="7654321"/>
+    </bean>
+
+<!--    <bean id="..." class="...">-->
+<!--        &lt;!&ndash; collaborators and configuration for this bean go here &ndash;&gt;-->
+<!--    </bean>-->
+
+<!--    <bean id="..." class="...">-->
+<!--        &lt;!&ndash; collaborators and configuration for this bean go here &ndash;&gt;-->
+<!--    </bean>-->
+
+    <!-- more bean definitions go here -->
+
+    <bean id="user2" class="cn.edu.hbsi.User2">
+        <property name="id" value="1"/>
+        <property name="name" value="悸动."/>
+        <property name="password" value="7654321"/>
+        <property name="user1" ref="user1"/>
+    </bean>
+
+</beans>
