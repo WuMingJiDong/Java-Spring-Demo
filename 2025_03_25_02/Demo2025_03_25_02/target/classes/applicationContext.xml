@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="" class="">
+        <constructor-arg name="" value=""/>
+        <constructor-arg type="" value=""/>
+        <constructor-arg index="" value=""/>
+        <property name="" value=""/>
+    </bean>-->
+    <!--<bean class="cn.edu.hbsi.domain.User" id="user">
+        <property name="id" value="1"/>
+        <property name="name" value="悸动."/>
+        <property name="password" value="7654321"/>
+        <property name="list">
+            <list>
+                <value>a</value>
+                <value>b</value>
+                <value>c</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <list>
+                <value>a</value>
+                <value>b</value>
+                <value>c</value>
+            </list>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="1" value="a"/>
+                <entry key="2" value="b"/>
+                <entry key="3" value="c"/>
+            </map>
+        </property>
+    </bean>-->
+
+    <bean class="cn.edu.hbsi.domain.Bean1" id="bean1"/>
+</beans>
