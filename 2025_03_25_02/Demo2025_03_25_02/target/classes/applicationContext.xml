@@ -10,7 +10,7 @@
         <constructor-arg index="" value=""/>
         <property name="" value=""/>
     </bean>-->
-    <!--<bean class="cn.edu.hbsi.domain.User" id="user">
+    <bean class="cn.edu.hbsi.domain.User" id="user">
         <property name="id" value="1"/>
         <property name="name" value="悸动."/>
         <property name="password" value="7654321"/>
@@ -23,11 +23,11 @@
         </property>
 
         <property name="set">
-            <list>
+            <set>
                 <value>a</value>
                 <value>b</value>
                 <value>c</value>
-            </list>
+            </set>
         </property>
 
         <property name="map">
@@ -37,7 +37,7 @@
                 <entry key="3" value="c"/>
             </map>
         </property>
-    </bean>-->
+    </bean>
 
     <bean class="cn.edu.hbsi.domain.Bean1" id="bean1"/>
 </beans>

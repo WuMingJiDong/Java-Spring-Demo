@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--<bean id="" class="">
+        <constructor-arg name="" value=""/>
+        <constructor-arg type="" value=""/>
+        <constructor-arg index="" value=""/>
+        <property name="" value=""/>
+    </bean>-->
+
+    <!--静态工厂实例化-->
+    <!--class属性是工厂类的全限定名：factory-method的值是工厂类中的静态方法-->
+<!--    <bean id="bean2" class="cn.edu.hbsi.domain.MyBean2Factory" factory-method="creatBean"/>-->
+
+    <!--实例工厂实例化-->
+    <bean id="myBean3Factory" class="cn.edu.hbsi.utils.MyBean3Factory"/>
+    <!--配置执行 普通方法 实例化   factory-bean属性的值是前面配置的工厂类实例的id
+    factory-method属性的值是工厂类中的实例方法-->
+    <bean id="bean3" factory-bean="myBean3Factory" factory-method="createBean"/>
+</beans>

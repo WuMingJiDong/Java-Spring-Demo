@@ -1,13 +1,13 @@
-import cn.edu.hbsi.domain.Bean1;
-import cn.edu.hbsi.domain.User;
+import cn.edu.hbsi.domain.Bean2;
+import cn.edu.hbsi.domain.MyBean2Factory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class test
+public class testBean2
 {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (User) applicationContext.getBean("user");
-        System.out.println(user);
+        Bean2 bean2 = (Bean2) applicationContext.getBean("bean2");
+        System.out.println(bean2);
     }
 }
