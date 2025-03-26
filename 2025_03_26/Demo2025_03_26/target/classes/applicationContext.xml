@@ -19,13 +19,13 @@
 <!--    <bean id="bean2" class="cn.edu.hbsi.domain.MyBean2Factory" factory-method="creatBean"/>-->
 
     <!--实例工厂实例化-->
-    <bean id="myBean3Factory" class="cn.edu.hbsi.utils.MyBean3Factory"/>
+<!--    <bean id="myBean3Factory" class="cn.edu.hbsi.utils.MyBean3Factory"/>-->
     <!--配置执行 普通方法 实例化   factory-bean属性的值是前面配置的工厂类实例的id
     factory-method属性的值是工厂类中的实例方法-->
-    <bean id="bean3" factory-bean="myBean3Factory" factory-method="createBean"/>
+<!--    <bean id="bean3" factory-bean="myBean3Factory" factory-method="createBean"/>-->
 
 <!--    <bean id="bean1" class="cn.edu.hbsi.domain.Bean1" scope="singleton"/>-->
-    <bean id="bean1" class="cn.edu.hbsi.domain.Bean1" scope="prototype"/>
+<!--    <bean id="bean1" class="cn.edu.hbsi.domain.Bean1" scope="prototype"/>-->
 
     <!--<bean class="cn.edu.hbsi.domain.User" id="user">
         <property name="id" value="1"/>
