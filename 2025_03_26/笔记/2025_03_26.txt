@@ -1,0 +1,61 @@
+Bean的实例化：
+	1.构造方法实例化
+		<bean id="bean1" class="cn.edu.hbsi.domain.Bean1"></bean>
+
+	2.静态工厂实例化
+		<bean id="bean2" class="cn.edu.hbsi.utils.MyBean2Factory" factory-method="createBean"/>（createBean是方法名，该方法是静态的）
+
+	3.实例工厂实例化
+		<!-- 配置工厂 -->
+    		<bean id="myBean3Factory”	class="cn.edu.hbsi.utils.MyBean3Factory" />
+    		<!-- 使用factory-bean属性指向配置的实例工厂-->
+    		<bean id="bean3" factory-bean="myBean3Factory"
+          factory-method="createBean" />（createBean是方法名，该方法是非静态的）
+
+
+Bean的作用域：
+	1.singleton单例：spring ioc容器启动的时候会创建出对象，保持在容器中，获取的都是原来创建好的对象。（默认）
+		<bean id="bean1" class="cn.edu.hbsi.domain.Bean1" scope="singleton"/>
+		或者<bean id="bean1" class="cn.edu.hbsi.domain.Bean1"/>
+
+	2.prototype原型：容器启动时，不会创建对象，获取对象的时候才创建对象，每次获取都会创建一个新对象。
+		<bean id="bean1" class="cn.edu.hbsi.domain.Bean1" scope="prototype"/>
+
+Bean的装配方式：
+	1）基于XML的装配：
+		1.setter方法注入：
+			（1）Bean类必须提供一个默认的无参构造方法。
+        		（2）Bean类必须为需要注入的属性提供对应的setter方法。 
+
+		2.构造方法注入
+
+	2）基于注解的装配：
+		@Component：指定一个普通的Bean，可以作用在任何层次。
+		@Controller：指定一个控制器组件Bean，用于将控制层的类标识为Spring中的Bean。
+		@Service：指定一个业务逻辑组件Bean，用于将业务逻辑层的类标识为Spring中的Bean。
+		@Repository：指定一个数据访问组件Bean，用于将数据访问层的类标识为Spring 中的Bean。
+		@Scope：指定Bean实例的作用域。
+		@Value：指定Bean实例的注入值。
+		@Resource：指定要注入的对象。
+			JDK11以上的版本不能使用@Resource注解，需导入依赖：
+				<dependency>
+            				<groupId>javax.annotation</groupId>
+            				<artifactId>javax.annotation-api</artifactId>
+            				<version>1.3.2</version>
+        			</dependency>
+		
+		XML配置文件：
+			<beans xmlns="http://www.springframework.org/schema/beans"
+       				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       				xmlns:context="http://www.springframework.org/schema/context"
+       				xsi:schemaLocation="http://www.springframework.org/schema/beans
+      				http://www.springframework.org/schema/beans/spring-beans.xsd
+      				http://www.springframework.org/schema/context
+  				http://www.springframework.org/schema/context/spring-context.xsd">
+
+    					<context:component-scan base-package="com.itheima" />
+
+			</beans>
+
+		导入依赖：
+			高于JDK8的JDK版本不能导入5.2.8.RELEASE版本的spring-context，需导入6.1.0及以上的版本
