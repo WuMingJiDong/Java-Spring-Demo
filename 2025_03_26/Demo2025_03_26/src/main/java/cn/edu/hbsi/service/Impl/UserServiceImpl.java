@@ -3,6 +3,7 @@ package cn.edu.hbsi.service.Impl;
 import cn.edu.hbsi.dao.UserDao;
 import cn.edu.hbsi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ public class UserServiceImpl implements UserService
 {
 //    @Resource(name = "UserDao")
     @Autowired
+    @Qualifier("UserDao2")
     private UserDao userDao;
 
     @Override
