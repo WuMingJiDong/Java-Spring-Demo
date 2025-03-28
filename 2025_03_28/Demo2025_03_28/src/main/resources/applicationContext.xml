@@ -16,4 +16,11 @@
 
     <!--<context:component-scan base-package=""/>-->
 
+    <context:component-scan base-package="cn.edu.hbsi"/>
+
+    <bean id="Student2" class="cn.edu.hbsi.domain.Student" init-method="init2" destroy-method="destory2">
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="name" value="吾名悸动"/>
+    </bean>
+
 </beans>
