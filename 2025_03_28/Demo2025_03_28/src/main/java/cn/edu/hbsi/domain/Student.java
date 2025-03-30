@@ -9,9 +9,9 @@ import javax.annotation.PreDestroy;
 @Component("Student")
 public class Student
 {
-    @Value("1")
+//    @Value("1")
     private Integer id;
-    @Value("悸动.")
+//    @Value("悸动.")
     private String name;
 
     public Student() {
@@ -22,6 +22,9 @@ public class Student
         this.name = name;
     }
 
+    /**
+     * 用于在初始化时给予提示
+     */
     @PostConstruct
     public void init(){
         System.out.println("Bean初始化完成调用init()方法");
