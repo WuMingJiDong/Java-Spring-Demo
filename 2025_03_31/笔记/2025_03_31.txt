@@ -1,0 +1,89 @@
+基于XML的AOP实现：
+	AOP的配置：在切面中配置切入点和增强的关系
+	引入AOP依赖：
+		方式一：
+			<dependency>
+            			<groupId>org.springframework</groupId>
+            			<artifactId>spring-aspects</artifactId>
+            			<version>6.1.11</version>
+        		</dependency>
+			其中，<version>标签的版本必须和<spring-context>的版本一致
+
+		方式二：
+			<!--aspectjrt包的依赖-->
+        		<dependency>
+            			<groupId>org.aspectj</groupId>
+            			<artifactId>aspectjrt</artifactId>
+            			<version>1.9.1</version>
+        		</dependency>
+        		<!--aspectjweaver包的依赖-->
+        		<dependency>
+            			<groupId>org.aspectj</groupId>
+            			<artifactId>aspectjweaver</artifactId>
+            			<version>1.9.6</version>
+        		</dependency>
+
+	配置Spring AOP的XML元素：
+		<aop:config>：			Spring AOP配置的根元素
+		<aop:aspect>：			配置切面
+		<aop:advisor>：		配置通知器
+		<aop:pointcut>	：		配置切点
+		<aop:before>：		配置前置通知,在目标方法执行前实施增强,可以应用于权限管理等功能
+		<aop:after>：			配置后置通知,在目标方法执行后实施增强,可以应用于关闭流、上传文件、删除临时文件等功能
+		<aop:around>：		配置环绕方式,在目标方法执行前后实施增强,可以应用于日志、事务管理等功能
+		<aop:after-returning>：	配置返回通知,在目标方法成功执行之后调用通知
+		<aop:after-throwing>：	配置异常通知,在方法抛出异常后实施增强,可以应用于处理异常记录日志等功能
+
+	配置切面：
+		在Spring的配置文件中，配置切面使用的是<aop:aspect>元素，该元素会将一个已定义好的Spring Bean转换成切面Bean，因此，在使用<aop:aspect>元素之前，要在配置文件中先定义一个普通的Spring Bean。Spring Bean定义完成后，通过<aop:aspect>元素的ref属性即可引用该Bean。配置<aop:aspect>元素时，通常会指定id和ref两个属性。 
+		如：
+			<!--注册切面Bean对象-->
+    			<bean id="xmlAdvice" class="cn.edu.hbsi.domain.XmlAdvice"/>
+			<!--配置Spring AOP-->
+    			<aop:config>
+        			<!--配置全局切入点-->
+        			<aop:pointcut id="UserDaoPointcut" expression="execution(* cn.edu.hbsi.dao.Impl.UserDaoImpl.*(..))"/>
+        			<!--配置切面-->
+        			<aop:aspect ref="xmlAdvice">
+					......
+                    		</aop:aspect>
+    			</aop:config>
+
+		<aop:aspect>元素内元素的常用属性：
+			1.pointcut：	该属性用于指定一个切入点表达式,Spring将在匹配该表达式的连接点时织入该通知。
+			2.pointcut-ref：	该属性指定一个已经存在的切入点名称,如配置代码中的myPointCut。通常pointcut和pointcut-ref两个属性只需要使用其中一个即可。
+			3.method：	该属性指定一个方法名,指定将切面Bean中的该方法转换为增强处理。
+			4.throwing：	该属性只对<after-throwing>元素有效,它用于指定一个形参名,异常通知方法可以通过该形参访问目标方法所抛出的异常。
+			5.returning：	该属性只对<after-returning>元素有效,它用于指定一个形参名,后置通知方法可以通过该形参访问目标方法的返回值。
+
+	配置切入点：
+		在Spring的配置文件中，切入点是通过<aop:pointcut>元素来定义的。当<aop:pointcut>元素作为<aop:config>元素的子元素定义时，表示该切入点是全局的，它可被多个切面共享；当<aop:pointcut>元素作为<aop:aspect>元素的子元素时，表示该切入点只对当前切面有效。定义<aop:pointcut>元素时，通常会指定id、expression属性。 
+		如：
+			<aop:pointcut id="UserDaoPointcut" expression="execution(* cn.edu.hbsi.dao.Impl.UserDaoImpl.*(..))"/>
+		其中，execute(* cn.edu.hbsi.dao.Impl.UserDaoImpl.*(..))
+			第一个*：代表返回值类型，可以是任意返回值类型；
+			cn.edu.hbsi.dao.Impl.UserDaoImpl.*：代表UserDaoImpl类中的所有方法
+			(..)：括号中的两点，代表方法的参数可以是任意的。
+
+	切入点表达式的基本格式：
+		execution(modifiers-pattern?ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?)
+			其中：	1.modifiers-pattern：访问修饰符，后面问号代表可省；
+					2.ret-type-pattern：	返回值类型；
+					3.ret-type-pattern：	类路径，可省；
+					4.name-pattern	：	方法名；
+					5.param-pattern：	方法参数；
+					6.throws-pattern：	抛出的异常，可省。
+
+	配置通知：
+		在Spring的配置文件中，使用<aop:aspect>元素配置了5种常用通知，分别为前置通知、后置通知、环绕通知、返回通知和异常通知。 
+		如：
+			<!--指定前置通知-->
+            		<aop:before method="before" pointcut-ref="UserDaoPointcut"/>
+            		<!--指定返回通知-->
+            		<aop:after-returning method="afterReturning" pointcut-ref="UserDaoPointcut"/>
+            		<!--环绕通知-->
+            		<aop:around method="around" pointcut-ref="UserDaoPointcut"/>
+            		<!--指定异常通知-->
+            		<aop:after-throwing method="afterException" pointcut-ref="UserDaoPointcut"/>
+            		<!--指定后置通知-->
+            		<aop:after method="after" pointcut-ref="UserDaoPointcut"/>
