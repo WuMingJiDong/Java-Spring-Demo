@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.hbsi</groupId>
-    <artifactId>Demo2025_04_01</artifactId>
+    <artifactId>Demo2025_04_02</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,16 +13,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
     <dependencies>
-        <!--AOP依赖：spring-aspects-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>6.1.11</version>
-        </dependency>
-
-        <!--javax.annotation-api-->
+        <!--JDK11以上的版本不能使用@Resource注解，需要导入下面依赖-->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>

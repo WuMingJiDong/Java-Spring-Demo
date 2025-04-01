@@ -1,17 +1,11 @@
-基于注解的AOP实现
-	Spring AOP的注解：
-		1.@Aspect：配置切面
-		2.@Pointcut：配置切点
-		3.@Before：配置前置通知
-		4.@After：配置后置通知
-		5.@Around：配置环绕方式
-		6.@AfterReturning：	配置返回通知
-		7.@AfterThrowing：	配置异常通知
+package cn.edu.hbsi.domain;
 
-	在applicationContext.xml文件中配置：
-		<!--开启注解AOP，开启自动代理的支持-->
-		<aop:aspectj-autoproxy>
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
+import org.springframework.stereotype.Component;
 
+@Component("annoAdvice")
 @Aspect("AnnoAdvice")
 public class AnnoAdvice
 {
