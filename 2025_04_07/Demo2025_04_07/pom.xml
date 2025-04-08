@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.hbsi</groupId>
-    <artifactId>Demo2025_04_02</artifactId>
+    <artifactId>Demo2025_04_07</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -14,30 +14,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-        <!--Spring-JDBC-->
+        <!--aop的依赖包-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+            <version>6.1.11</version>
+        </dependency>
+
+        <!--spring-jdbc-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>6.1.11</version>
-            <scope>compile</scope>
         </dependency>
 
-        <!--Spring-tx事务管理-->
+        <!--spring-tx-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
             <version>6.1.11</version>
         </dependency>
 
-        <!--Mysql驱动-->
+        <!--mysql驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.11</version>
-            <scope>runtime</scope>
         </dependency>
 
-        <!--JDK11以上的版本不能使用@Resource注解，需要导入下面依赖-->
+        <!--解决JDK11版本以上的版本无法使用<Recource>标签的问题-->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
