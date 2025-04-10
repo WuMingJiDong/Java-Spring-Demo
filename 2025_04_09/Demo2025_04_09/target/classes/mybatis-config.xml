@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--环境配置-->
+<configuration>
+    <!--加载数据库配置文件-->
+    <!--<properties resource="db.properties"/>-->
+
+    <settings>
+        <!--开启二级缓存机制-->
+        <setting name="cacheEnabled" value="true"/>
+
+        <!--配置延迟加载-->
+        <!--打开延迟加载的开关-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--将积极加载改为消息加载，即按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
+
+    <!--别名设置为类名的大小写-->
+    <!--<typeAliases>
+        <package name="cn.edu.hbsi.domain"/>
+    </typeAliases>-->
+
+    <!--<environments default="development">
+        <environment id="development">-->
+            <!--事务管理-->
+            <!--<transactionManager type="JDBC"/>-->
+
+            <!--数据源，获取数据库配置文件db.properties中的信息进行数据库配置-->
+            <!--<dataSource type="POOLED">
+                <property name="driver" value="${mysql.driver}"/>
+                <property name="url" value="${mysql.url}"/>
+                <property name="username" value="${mysql.username}"/>
+                <property name="password" value="${mysql.password}"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+
+    <!--mapping文件路径配置，是文件夹路径下的所有持久化操作文件-->
+    <!--<mappers>
+        <package name="cn.edu.hbsi.dao"/>
+    </mappers>-->
+</configuration>

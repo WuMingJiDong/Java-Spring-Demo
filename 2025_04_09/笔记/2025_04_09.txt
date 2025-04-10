@@ -1,0 +1,14 @@
+spring和mybatis整合：
+	1.创建项目
+	2.引入依赖
+	3.创建三层架构的类和接口：
+		（1）持久化类Account
+		（2）编写了AccountDao接口和对应的映射文件
+		（3）Service层编写了AccountService接口和对应的实现类AccountServiceImpl
+		（4）controller层
+
+	4.整合思路：IoC思想
+		由Spring IoC容器管理：
+			（1）数据源
+			（2）SqlSessionFactory
+			（3）Mapper对象

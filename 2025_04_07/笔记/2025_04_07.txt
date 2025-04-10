@@ -1,14 +1,70 @@
 Spring的事务管理
 
-编程式事务管理
+spring-tx依赖包的3个接口：
+	1.PlatformTransactionManager接口：可以根据属性管理事务。
+        2.TransactionDefinition接口：用于定义事务的属性，其中包括了事务的隔离级别、事务的传播行为、事务的超时时间和是否为只读事务。
+        3.TransactionStatus接口：用于界定事务的状态 。 
+
+事务的管理方式：
+	1.编程式事务管理：通过编写代码实现的事务管理，包括定义事务的开始、正常执行后的事务提交和异常时的事务回滚。
+	2.声明式事务管理：通过AOP技术实现的事务管理，其主要思想是将事务管理作为一个“切面”代码单独编写，然后通过AOP技术将事务管理的“切面”代码植入到业务目标类中。
 
 声明式事务管理：
+	导入AOP依赖
+
 	1.基于XML方式的：
-		1）配置事务管理器
+		1）配置事务管理器（切面）
+			<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+				<!--依赖数据源-->
+        			<property name="dataSource" ref="dataSource"/>
+    			</bean>
+
 		2）配置通知（增强）
+			<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        			<tx:attributes>
+            				<!--*代表所有方法-->
+            				<tx:method name="*" propagation="REQUIRED" isolation="DEFAULT" read-only="false"/>
+        			</tx:attributes>
+    			</tx:advice>
+
 		3）使用AOP思想，将通知和切入点整合
+			<!--配置AOP-->
+    			<aop:config>
+        			<!--配置切入点-->
+        			<aop:pointcut id="txPointCut" expression="execution(* cn.edu.hbsi.dao.Impl.AccountDaoImpl.*(..))"/>
+        			<!--将切入点和通知整合-->
+        			<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
+    			</aop:config>
+
+		使用<tx:advice>元素来配置事务管理的通知，进而通过Spring AOP实现事务管理。
+       		配置<tx:advice>元素时，通常需要指定 id 和 transaction-manager 属性，其中，id 属性是配置文件中的唯一标识，transaction-manager 属性用于指定事务管理器。除此之外，<tx:advice>元素还包含子元素<tx: attributes>，<tx:attributes>元素可配置多个<tx:method>子元素，<tx:method>子元素主要用于配置事务的属性。
+
+	<tx:method>元素的常用属性：
+		1.name：			用于指定方法名的匹配模式，该属性为必选属性，它指定了与事务属性相关的方法名。
+		2.propagation：	用于指定事务的传播行为。
+		3.isolation：		用于指定事务的隔离级别。
+		4.read-only：		用于指定事务是否只读。
+		5.timeout：		用于指定事务超时时间。
+		6.rollback-for：		用于指定触发事务回滚的异常类。
+		7.no-rollback-for：	用于指定不触发事务回滚的异常类。
 
 	2.基于注解方式的：
 		1）配置事务管理器（切面）
+			<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        			<property name="dataSource" ref="dataSource"/>
+    			</bean>
+
 		2）注册事务管理器驱动
-		3）在需要事务处理的方法/类上加上注解@Transactional
+			<!--开启注释事务管理-->
+    			<tx:annotation-driven transaction-manager="transactionManager"/>
+
+		3）在需要事务处理的方法/类上加上注解@Transactional，其属性：
+			1.value：					用于指定使用的事务管理器。
+			2.propagation：			用于指定事务的传播行为。
+			3.isolation：				用于指定事务的隔离级别。
+			4.timeout：				用于指定事务的超时时间。
+			5.readonly：				用于指定事务是否为只读。
+			6.rollbackFor：				用于指定导致事务回滚的异常类数组。
+			7.rollbackForClassName：		用于指定导致事务回滚的异常类名称数组。
+			8.noRollbackFor：			用于指定不会导致事务回滚的异常类数组。
+			9.noRollbackForClassName：	用于指定不会导致事务回滚的异常类名称数组。
