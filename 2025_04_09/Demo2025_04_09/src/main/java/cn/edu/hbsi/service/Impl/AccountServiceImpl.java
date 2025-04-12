@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountServiceImpl implements AccountService
 {
-    //private SqlSession sqlSession = GetSqlSessionUtil.getSqlSession();
-    //private AccountDao accountDao = sqlSession.getMapper(AccountDao.class);
     @Autowired
     private AccountDao accountDao;
 

@@ -1,14 +1,72 @@
 spring和mybatis整合：
 	1.创建项目
-	2.引入依赖
+	2.引入依赖：
+		<!--统一版本管理-->
+        	<spring.version>6.1.11</spring.version>
+        	<mybatis.version>3.5.13</mybatis.version>
+        	<mybatis.spring.version>3.0.3</mybatis.spring.version>
+        	<mysql.version>8.0.33</mysql.version>
+
+		<!--MyBatis和Spring整合依赖-->
+        	<dependency>
+            		<groupId>org.mybatis</groupId>
+            		<artifactId>mybatis-spring</artifactId>
+            		<version>${mybatis.spring.version}</version>
+        	</dependency>
+
+		<!--junit : 单元测试，与spring-test放在一起做单元测试-->
+		<dependency>
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-test</artifactId>
+            		<version>${spring.version}</version>
+        	</dependency>
+		<dependency>
+            		<groupId>junit</groupId>
+            		<artifactId>junit</artifactId>
+            		<version>4.13.2</version>
+            		<scope>test</scope>
+        	</dependency>
+
+		<!--移除单独的commons-logging依赖，Spring已包含-->
+		<!--使用SLF4J+Log4j2的组合替代老旧的Log4j1.x-->
+		<!--SLF4J-->
+        	<dependency>
+            		<groupId>org.slf4j</groupId>
+            		<artifactId>slf4j-api</artifactId>
+            		<version>2.0.7</version>
+        	</dependency>
+        	<dependency>
+            		<groupId>org.slf4j</groupId>
+            		<artifactId>slf4j-log4j12</artifactId>
+            		<version>2.0.7</version>
+        	</dependency>
+
 	3.创建三层架构的类和接口：
 		（1）持久化类Account
 		（2）编写了AccountDao接口和对应的映射文件
 		（3）Service层编写了AccountService接口和对应的实现类AccountServiceImpl
 		（4）controller层
 
-	4.整合思路：IoC思想
+	4.整合思路：IoC思想，把mybatis-config.xml文件整合到applicationContext.xml文件中
 		由Spring IoC容器管理：
 			（1）数据源
 			（2）SqlSessionFactory
 			（3）Mapper对象
+
+				<!--创建SqlSessionFactoryBean对象-->
+    				<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        				<!--获取数据源-->
+        				<property name="dataSource" ref="dataSource"/>
+        				<property name="typeAliasesPackage" value="cn.edu.hbsi.domain"/>
+        				<!-- 显式指定 mapper 文件位置 -->
+        				<!--<property name="mapperLocations" value="classpath:cn/edu/hbsi/dao/*.xml"/>-->
+    				</bean>
+    				<!--扫描dao包，创建动态代理对象，由spring容器管理-->
+    				<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        				<!--指定要扫描的dao包-->
+        				<property name="basePackage" value="cn.edu.hbsi.dao"/>
+        				<!--告诉 MapperScannerConfigurer 应该使用 Spring 容器中哪个已定义的 SqlSessionFactory Bean-->
+        				<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        				<!--只扫描带有特定注解（如 @Mapper）的接口-->
+        				<property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
+    				</bean>
