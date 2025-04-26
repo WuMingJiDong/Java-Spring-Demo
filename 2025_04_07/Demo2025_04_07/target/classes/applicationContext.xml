@@ -75,6 +75,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--标签事务管理-->
     <!--配置通知（增强）-->
     <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
@@ -90,7 +91,17 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
     </aop:config>-->
 
+    <!--开启注释事务管理-->
     <!--注册事务管理器驱动-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <bean class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="cn.edu.hbsi.domain"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cn.edu.hbsi.dao"/>
+    </bean>
 
 </beans>

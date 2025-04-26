@@ -9,12 +9,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("AccountDao")
-public class AccountDaoImpl implements AccountDao
+public class AccountDaoImpl
 {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,readOnly = false)
+
     @Override
     public void transfer(String outUser, String inUser, Double money) {
         String sql1 = "update account set balance=balance+? where username=?";
